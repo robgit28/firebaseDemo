@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+
+  function isAuthenticated() {
+    return request.auth.uid != null 
+  }
+
+  match /databases/{database}/documents/courses/{courseId} {
+     allow read: if isAuthenticated(); 
+  }
+  match /databases/{database}/documents/courses/{courseId}/lessons/{lessonId} {
+     allow read: if isAuthenticated(); 
+  }
+}
